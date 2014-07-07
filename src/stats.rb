@@ -11,7 +11,7 @@ class Stats
 	end
 	def merge_exist!(hsh)
 		# Check if the given hash only includes keys that already exist.
-		@hash.each_key do |k|
+		hsh.each_key do |k|
 			if !@hash.has_key?(k)
 				raise "unrecognized hash key"
 			end
