@@ -10,7 +10,7 @@ def battle_loop(gs)
 	#battle_monster_option(gs)
 	if gs.monsters.empty?
 		puts "You defeat all monsters!"
-		gs.last_command = ""
+		gs.last_battle_command = ""
 	else
 		battle_loop(gs)
 	end
@@ -21,14 +21,14 @@ def battle_player_option(gs)
 	if str.split(' ').length > 0
 		run_option(gs, str)
 	else
-		run_option(gs, gs.last_command)
+		run_option(gs, gs.last_battle_command)
 	end
 end
 
 def run_option(gs, str)
 	case str
 	when "f"
-		gs.last_command = str
+		gs.last_battle_command = str
 		r = roll(gs.rng, 100)
 		puts "You do #{r} damage!"
 		ms = []
@@ -41,7 +41,7 @@ def run_option(gs, str)
 		gs.monsters = ms
 	else
 		puts "What?"
-		gs.last_command = str
+		gs.last_battle_command = str
 		battle_player_option(gs)
 	end
 end
