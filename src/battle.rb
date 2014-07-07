@@ -10,6 +10,7 @@ def battle_loop(gs)
 	#battle_monster_option(gs)
 	if gs.monsters.empty?
 		puts "You defeat all monsters!"
+		gs.last_command = ""
 	else
 		battle_loop(gs)
 	end
