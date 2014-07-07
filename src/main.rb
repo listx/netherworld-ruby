@@ -45,15 +45,12 @@ while true
 		puts "You stall in confusion."
 	end
 
-	case cmd
-	when "e", "w", "n", "s"
-		if p.coord != coord_old
-			r = roll(gs.rng, 100)
-			if r < 100
-				puts "You enter a battle!!!"
-				spawn_monsters(gs)
-				battle_loop(gs)
-			end
+	if p.coord != coord_old
+		r = roll(gs.rng, 100)
+		if r < 7
+			puts "You enter a battle!!!"
+			spawn_monsters(gs)
+			battle_loop(gs)
 		end
 	end
 end
