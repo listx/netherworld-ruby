@@ -27,6 +27,14 @@ while true
 		p.move(:north, gs.map)
 	when "s"
 		p.move(:south, gs.map)
+	when "ne"
+		p.move(:northeast, gs.map)
+	when "nw"
+		p.move(:northwest, gs.map)
+	when "se"
+		p.move(:southeast, gs.map)
+	when "sw"
+		p.move(:southwest, gs.map)
 	when ""
 		if !p.last_move_dir.nil?
 			p.move(p.last_move_dir, gs.map)

@@ -20,6 +20,14 @@ class Player
 			[x, y + 1]
 		when :south
 			[x, y - 1]
+		when :northeast
+			[x + 1, y + 1]
+		when :northwest
+			[x - 1, y + 1]
+		when :southeast
+			[x + 1, y - 1]
+		when :southwest
+			[x - 1, y - 1]
 		else
 			raise
 		end
