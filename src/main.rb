@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
+require_relative 'battle'
 require_relative 'map'
 require_relative 'player'
+require_relative 'random'
 require_relative 'state'
 
 # Import map.
@@ -13,6 +15,7 @@ while true
 	puts gs.map.mini_map(p.coord, 10)
 	puts p.coord_str
 	cmd = STDIN.gets.chomp
+	coord_old = p.coord
 	case cmd
 	when "q"
 		break
@@ -32,5 +35,17 @@ while true
 		end
 	else
 		puts "You stall in confusion."
+	end
+
+	case cmd
+	when "e", "w", "n", "s"
+		if p.coord != coord_old
+			r = roll(gs.rng, 100)
+			if r < 100
+				puts "You enter a battle!!!"
+				spawn_monsters(gs)
+				battle_loop(gs)
+			end
+		end
 	end
 end
