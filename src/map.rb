@@ -88,6 +88,26 @@ class GameMap
 			y += 1
 		end
 	end
+	def first_coord
+		x = 0
+		y = 0
+		coord = []
+		@game_map_array.each do |yLine|
+			yLine.each do |room|
+				if !room.nil?
+					coord = [x, y]
+					break
+				end
+				x += 1
+			end
+			if !coord.empty?
+				break
+			end
+			x = 0
+			y += 1
+		end
+		coord
+	end
 	def mini_map(coord, view_dist)
 		if view_dist < 1
 			raise "oops"

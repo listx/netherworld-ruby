@@ -9,7 +9,7 @@ require_relative 'state'
 # Import map.
 g = GameMap.new(ARGF.filename)
 gs = GameState.new(g)
-p = Player.new([0, 0])
+p = Player.new(gs.map.first_coord)
 
 while true
 	puts gs.map.mini_map(p.coord, 10)
