@@ -29,7 +29,7 @@ class Player
 		when :southwest
 			[x - 1, y - 1]
 		else
-			raise
+			raise "invalid direction"
 		end
 	end
 
