@@ -1,14 +1,15 @@
 #!/usr/bin/env ruby
 
+require_relative 'config'
 require_relative 'battle'
 require_relative 'map'
 require_relative 'player'
 require_relative 'random'
 require_relative 'state'
 
-# Import map.
-g = GameMap.new(ARGF.filename)
-gs = GameState.new(g)
+# Import game configuration.
+game_conf = GameConfig.new(ARGF.filename)
+gs = GameState.new(game_conf)
 p = Player.new(gs.map.first_coord)
 
 while true
