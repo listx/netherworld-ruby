@@ -1,6 +1,7 @@
 require 'parslet'
 
 require_relative 'config'
+require_relative 'effect'
 require_relative 'util'
 
 AFFIX_CLASS_NAMES = %w[
@@ -125,11 +126,20 @@ class Affix
 	attr_accessor :class
 	attr_accessor :name
 	attr_accessor :effects
-	attr_accessor :hash
+#	attr_accessor :hash
 	def initialize(hash)
-		@class = hash[:class]
+		# We need to use .to_s, because the type is Parslet::Slice
+		c = hash[:class].to_s
+		@class =
+			if AFFIX_CLASS_NAMES.include?(c)
+				no_dash(c).to_sym
+			else
+				raise "unrecognized affix class `#{hash[:class]}'"
+			end
 		@name = hash[:name]
-		@effects = hash[:effects]
-		@hash = hash
+		@effects = hash[:effects].map do |hash|
+			Effect.new(hash)
+		end
+#		@hash = hash
 	end
 end
