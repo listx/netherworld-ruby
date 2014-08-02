@@ -148,7 +148,7 @@ class MWC256
 	# comp.lang.c newsgroup, is known to exist. We use the first version because
 	# that is what Bryan O'Sullivan's `mwc-random` uses (which is what
 	# NetherWorld uses).
-	def rand()
+	def rand64()
 		i = (@state[@ioff] + 1) % 256
 		j = (i + 1) % 256
 		c = @state[@coff]
@@ -177,26 +177,25 @@ class MWC256
 	end
 
 	def uniform_range(a, b)
-		if a == b
-			return a
-		elsif b > a
-			uniform_range(b, a)
+		i = nil
+		j = nil
+		if a < b
+			i, j = a, b
 		else
-			n = 1 + (j - 1)
-			if n == 0
-				rand()
-			else
-				x = rand()
-				maxBound = b
-				buckets = maxBound / n
-				maxN = buckets * n
-				while true do
-					if x < maxN
-						return i + (x / buckets)
-					end
-				end
+			i, j = b, a
+		end
+
+		n = 1 + (j - i)
+		max_bound = U64_MAX
+		buckets = max_bound / n
+		max_n = buckets * n
+		while true do
+			x = rand64()
+			if x < max_n
+				break
 			end
 		end
+		return (i + (x / buckets)) % U64_MOD
 	end
 
 	def warmup(n)
@@ -204,7 +203,7 @@ class MWC256
 			raise "n must be at least 1"
 		else
 			for i in 1..n
-				n = rand
+				n = rand64
 			end
 		end
 		n
