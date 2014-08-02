@@ -208,6 +208,13 @@ class MWC256
 		end
 		n
 	end
+
+	def roll(n)
+		if (n < 2)
+			raise "roll: n must be > 1"
+		end
+		uniform_range(1, n)
+	end
 end
 
 # Returns an array of Word32s.

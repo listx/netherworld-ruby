@@ -16,4 +16,5 @@ cases.each do |s|
 	# The (*) "splat" operator converts an array into a list of args.
 	r = MWC256.new(*s)
 	puts r.warmup(100000)
+	p r.roll(10)
 end
