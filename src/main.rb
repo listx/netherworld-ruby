@@ -47,7 +47,7 @@ while true
 	end
 
 	if p.coord != coord_old
-		r = roll(gs.rng, 100)
+		r = gs.rng.roll(100)
 		if r < 7
 			puts "You enter a battle!!!"
 			spawn_monsters(gs)

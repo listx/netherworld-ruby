@@ -5,7 +5,7 @@ class Monster
 	attr_accessor :stats
 	def initialize(rng)
 		@stats = Stats.new
-		hp = roll(rng, 100)
+		hp = rng.roll(100)
 		@stats.merge_exist!({health: hp})
 	end
 end

@@ -29,7 +29,7 @@ def run_option(gs, str)
 	case str
 	when "f"
 		gs.last_battle_command = str
-		r = roll(gs.rng, 100)
+		r = gs.rng.roll(100)
 		puts "You do #{r} damage!"
 		ms = []
 		gs.monsters.each do |m|

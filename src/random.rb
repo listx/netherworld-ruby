@@ -241,10 +241,3 @@ end
 def octets_le(w)
 	[w, w >> 8, w >> 16, w >> 24].map {|x| x & U8_MAX}
 end
-
-def roll(rng, n)
-	if (n < 2)
-		raise "roll: n must be > 1"
-	end
-	rng.rand(1..n)
-end
