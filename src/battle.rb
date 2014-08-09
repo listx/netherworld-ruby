@@ -5,6 +5,15 @@ def spawn_monsters(gs)
 	gs.monsters << Monster.new(gs.rng)
 end
 
+def battle_trigger(gs)
+	r = gs.rng.roll(100)
+	if r < 7
+		puts "You enter a battle!!!"
+		spawn_monsters(gs)
+		battle_loop(gs)
+	end
+end
+
 def battle_loop(gs)
 	battle_player_option(gs)
 	#battle_monster_option(gs)

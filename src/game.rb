@@ -19,30 +19,36 @@ module Game
 	def game_loop(gs)
 		while true
 			p = gs.player
+			pc = p.coord
 
-			puts gs.map.mini_map(p.coord, 10)
+			puts gs.map.mini_map(pc, 10)
 			puts p.coord_str
 
 			tokens = STDIN.gets.chomp.split(' ')
-			@cmd = tokens[0]
-
-			if tokens.size > 0
-				if DIRS.include?(@cmd)
-					gs.last_command = @cmd
-					go_if_ok(gs, @cmd)
+			@cmd =\
+				if tokens.size > 0
+					tokens[0]
+				elsif !gs.last_command.empty?
+					gs.last_command
 				else
-					case @cmd
-					when "q"
-						break
-					else
-						puts "You stall in confusion."
-					end
+					""
+				end
+			if DIRS.include?(@cmd)
+				gs.last_command = @cmd
+				go_if_ok(gs, @cmd)
+				pc_ = gs.player.coord
+				if (pc != pc_)
+					mix_rng(gs, @cmd)
+					battle_trigger(gs)
 				end
 			else
-				if gs.last_command.empty?
+				case @cmd
+				when "q"
+					break
+				when ""
 					puts "Confused already?"
 				else
-					go_if_ok(gs, gs.last_command)
+					puts "You stall in confusion."
 				end
 			end
 		end
@@ -52,13 +58,11 @@ module Game
 		p = gs.player
 		coord_old = p.coord
 		p.move(DIR_HASH[str], gs.map)
-		if p.coord != coord_old
-			r = gs.rng.roll(100)
-			if r < 7
-				puts "You enter a battle!!!"
-				spawn_monsters(gs)
-				battle_loop(gs)
-			end
-		end
+	end
+
+	def mix_rng(gs, str)
+		dir_rng_warmups = DIRS.zip(gs.rng.rnd_sample(8, (1..8).to_a)).to_h
+		count = dir_rng_warmups[str]
+		gs.rng.warmup(count)
 	end
 end
