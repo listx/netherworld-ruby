@@ -221,6 +221,8 @@ class MWC256
 		n
 	end
 
+	# Simulate an n-sided die, by randomly choosing a number from the interval
+	# [1, n]. If n is 2, it is like a coin flip.
 	def roll(n)
 		if (n < 2)
 			raise "roll: n must be > 1"
