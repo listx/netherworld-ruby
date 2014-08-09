@@ -25,6 +25,18 @@ class MWC256
 		case seed_type
 		when :seed_empty
 			init_state(seed)
+		# Behaves the same way as `initialize` from mwc-random library.
+		when :seed_mwc
+			ws = seed.take(256)
+			ic = seed.drop(256)
+			if seed.size == 258
+				init_state(seed)
+			else
+				init_state(ws)
+			end
+		# Like :seed_mwc, but performs extra SHA/XOR mixing to the seed's first
+		# 256 values (i.e., the index 'i' and multiplicand/consant 'c' values
+		# are not mixed).
 		when :seed_manual
 			ws = seed.take(256)
 			i = seed[256]
