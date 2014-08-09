@@ -227,6 +227,20 @@ class MWC256
 		end
 		uniform_range(1, n)
 	end
+
+	# Choose `count` elements from `xs`.
+	def rnd_sample(count, xs)
+		if count == 0 || xs.empty?
+			[]
+		elsif count < 0
+			raise "rnd_sample: count must be > 0"
+		else
+			idx = uniform_range(0, xs.size - 1)
+			chosen = xs.delete_at(idx)
+			rest = rnd_sample(count - 1, xs)
+			[chosen] + rest
+		end
+	end
 end
 
 # Returns an array of Word32s.
