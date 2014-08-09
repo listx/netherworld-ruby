@@ -1,8 +1,6 @@
 class Player
 	attr_accessor :coord
-	attr_reader :last_move_dir
 	@coord
-	@last_move_dir = nil
 
 	def initialize(coord)
 		@coord = coord
@@ -53,10 +51,8 @@ class Player
 		if self.can_go_dir?(direction, game_map)
 #			puts "You go #{direction.to_s}."
 			self.go_dir!(direction)
-			@last_move_dir = direction
 		else
 			puts "You cannot go there."
-			@last_move_dir = nil
 		end
 	end
 
