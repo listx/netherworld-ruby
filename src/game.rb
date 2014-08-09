@@ -43,7 +43,7 @@ module Game
 				end
 			else
 				case @cmd
-				when "q"
+				when "q", "quit"
 					break
 				when ""
 					puts "Confused already?"
