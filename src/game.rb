@@ -39,7 +39,11 @@ module Game
 					end
 				end
 			else
-				go_if_ok(gs, gs.last_command)
+				if gs.last_command.empty?
+					puts "Confused already?"
+				else
+					go_if_ok(gs, gs.last_command)
+				end
 			end
 		end
 	end
