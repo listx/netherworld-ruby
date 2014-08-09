@@ -6,10 +6,13 @@ dirs = %w[e w n s ne nw se sw]
 def game_loop(gs)
 	while true
 		p = gs.player
+		coord_old = p.coord
+
 		puts gs.map.mini_map(p.coord, 10)
 		puts p.coord_str
+
 		tokens = STDIN.gets.chomp.split(' ')
-		coord_old = p.coord
+
 		if tokens.size > 1
 			puts "command unsupported"
 		else
