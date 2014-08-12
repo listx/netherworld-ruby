@@ -153,7 +153,7 @@ class MWC256
 	# (https://groups.google.com/d/msg/sci.math/k3kVM8KwR-s/jxPdZl8XWZkJ), by
 	# George Marsaglia, from the topic "RNGs" on the sci.math newsgroup. Another
 	# (simpler) version, posted on May 13, 2003
-	# (https://groups.google.com/forum/#!msg/comp.lang.c/qZFQgKRCQGg/rmPkaRHqxOMJ),
+	# (https://groups.google.com/d/msg/comp.lang.c/qZFQgKRCQGg/rmPkaRHqxOMJ),
 	# also by Marsaglia from the topic "good C random number generator" on the
 	# comp.lang.c newsgroup, is known to exist. We use the first version because
 	# that is what Bryan O'Sullivan's `mwc-random` uses (which is what

@@ -30,6 +30,8 @@ GCONF_KEYS = %w[
 	]
 
 class ConfigParser < ParserHelpers
+	# Enumerable#reduce(:method_name) calls method_name() on all arguments to
+	# reduce it; e.g., (5..10).reduce(:+) gets us 45
 	rule(:game_config) do
 		GCONF_KEYS.map do |key|
 			whitespace_.maybe >>
@@ -37,7 +39,7 @@ class ConfigParser < ParserHelpers
 				whitespace_.maybe >>
 				string_literal.as(no_dash(key).to_sym) >>
 				whitespace_.maybe
-		end.reduce(:>>) # reduce(:method_name) calls method_name() on all arguments to reduce it; e.g., (5..10).reduce(:+) gets us 45
+		end.reduce(:>>)
 	end
 
 	# Specify master rule to start parsing from.

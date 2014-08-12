@@ -1,7 +1,10 @@
 require 'parslet'
 
+# Some of the parsers here come from the following resources:
+
+# https://github.com/kschiess/parslet/blob/master/example/string_parser.rb
+# https://github.com/kschiess/parslet/blob/master/example/comments.rb
 class ParserHelpers < Parslet::Parser
-	# See https://github.com/kschiess/parslet/blob/master/example/string_parser.rb
 	rule(:string_literal) do
 		str('"') >>
 		(
@@ -19,7 +22,6 @@ class ParserHelpers < Parslet::Parser
 		((comment | space).repeat).maybe
 	end
 
-	# See https://github.com/kschiess/parslet/blob/master/example/comments.rb
 	rule(:comment) do
 		(str('#') >> (newline.absent? >> any).repeat)#.as(:comment)
 	end

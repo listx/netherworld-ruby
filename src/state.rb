@@ -17,7 +17,8 @@ class GameState
 		@config = GameConfig.new(f)
 		@map = GameMap.new(@config.map)
 		@player = Player.new(@map.first_coord)
-		@affix_db = AffixParserTransform.new.apply(parse_affix_db(@config.affix_db))
+		@affix_db = \
+			AffixParserTransform.new.apply(parse_affix_db(@config.affix_db))
 		@monsters = []
 		@rng = MWC256.new(:seed_manual, (1..258).to_a)
 		@last_command = ""
