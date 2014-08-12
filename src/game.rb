@@ -21,7 +21,7 @@ module Game
 			p = gs.player
 			pc = p.coord
 
-			puts gs.map.mini_map(pc, 10)
+			puts gs.game_map.mini_map(pc, 10)
 			puts p.coord_str
 
 			tokens = STDIN.gets.chomp.split(' ')
@@ -57,7 +57,7 @@ module Game
 	def go_if_ok(gs, str)
 		p = gs.player
 		coord_old = p.coord
-		p.move(DIR_HASH[str], gs.map)
+		p.move(DIR_HASH[str], gs.game_map)
 	end
 
 	def mix_rng(gs, str)

@@ -4,7 +4,7 @@ require 'pathname'
 require_relative 'util'
 
 class GameConfig
-	attr_accessor :map
+	attr_accessor :game_map
 	attr_accessor :affix_db
 	attr_accessor :monster_db
 
@@ -17,7 +17,7 @@ class GameConfig
 
 		config_raw = IO.read(filename)
 		hash = ConfigParserTransform.new.apply(parse_config(config_raw))
-		@map = config_dir + hash[:map]
+		@game_map = config_dir + hash[:map]
 		@affix_db = config_dir + hash[:affix_db]
 		@monster_db = config_dir + hash[:monster_db]
 	end

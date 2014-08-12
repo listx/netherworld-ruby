@@ -6,7 +6,7 @@ require_relative 'random'
 
 class GameState
 	attr_accessor :config
-	attr_accessor :map
+	attr_accessor :game_map
 	attr_accessor :player
 	attr_accessor :monsters
 	attr_accessor :affix_db
@@ -15,8 +15,8 @@ class GameState
 	attr_accessor :last_battle_command
 	def initialize(f)
 		@config = GameConfig.new(f)
-		@map = GameMap.new(@config.map)
-		@player = Player.new(@map.first_coord)
+		@game_map = GameMap.new(@config.game_map)
+		@player = Player.new(@game_map.first_coord)
 		@affix_db = \
 			AffixParserTransform.new.apply(parse_affix_db(@config.affix_db))
 		@monsters = []
