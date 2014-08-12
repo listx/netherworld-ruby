@@ -47,9 +47,9 @@ class ConfigParser < ParserHelpers
 end
 
 def parse_config(str)
-	gconf = ConfigParser.new
+	parser = ConfigParser.new
 
-	gconf.parse(str)
+	parser.parse(str)
 	rescue Parslet::ParseFailed => failure
 		puts failure.cause.ascii_tree
 end
