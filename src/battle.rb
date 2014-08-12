@@ -26,7 +26,7 @@ def battle_loop(gs)
 end
 
 def battle_player_option(gs)
-	str = STDIN.gets.chomp
+	str = get_user_input(gs)
 	if str.split(' ').length > 0
 		run_option(gs, str)
 	else

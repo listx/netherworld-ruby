@@ -24,7 +24,7 @@ module Game
 			puts gs.game_map.mini_map(pc, 10)
 			puts p.coord_str
 
-			tokens = STDIN.gets.chomp.split(' ')
+			tokens = get_user_input(gs).split(' ')
 			@cmd =\
 				if tokens.size > 0
 					tokens[0]
@@ -45,6 +45,12 @@ module Game
 				case @cmd
 				when "q", "quit"
 					break
+				when "save"
+					if tokens.size != 2
+						puts "Please provide a single savegame filepath."
+					else
+						save_game(gs, tokens[1])
+					end
 				when ""
 					puts "Confused already?"
 				else
@@ -64,5 +70,49 @@ module Game
 		dir_rng_warmups = DIRS.zip(gs.rng.rnd_sample(8, (1..8).to_a)).to_h
 		count = dir_rng_warmups[str]
 		gs.rng.warmup(count)
+	end
+
+	def save_game(gs, f)
+		if gs.replay
+			return
+		end
+		str = []
+		str << "map \"#{gs.config.game_map}\""
+		str << "affix-db \"#{gs.config.affix_db}\""
+		str << "monster-db \"#{gs.config.monster_db}\""
+		str << ""
+		str << "player-coord #{gs.player.coord[0]} #{gs.player.coord[1]}"
+		str << "player-stats {"
+		str << stats_to_text(gs.player)
+		str << "}"
+		str << ""
+		str << "last-command \"#{gs.last_command}\""
+		str << ""
+		str << "rng-initial"
+		str << rng_to_text(gs.rng_initial)
+		str << ""
+		str << "rng"
+		str << rng_to_text(gs.rng)
+		str << ""
+		str << "input-history #{gs.input_history}"
+		IO.write(f, str.join("\n") + "\n")
+	end
+
+	def rng_to_text(rng)
+		rng
+			.state
+			.to_a
+			.map {|x| "0x%08x" % x.to_s}
+			.each_slice(8)
+			.to_a
+			.map {|arr| "\t" + arr.join("\t")}
+			.join("\n")
+	end
+
+	def stats_to_text(player)
+		player
+			.stats
+			.hash
+			.map {|attr, val| "\t#{attr.to_s.capitalize} #{val.to_s}"}
 	end
 end

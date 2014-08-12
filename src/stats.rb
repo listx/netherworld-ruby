@@ -5,8 +5,8 @@ class Stats
 		@hash =\
 			{ health: 100\
 			, mana: 100\
-			, strength: 100\
-			, wisdom: 100\
+			, strength: 10\
+			, wisdom: 10\
 			}
 	end
 	def merge_exist!(hsh)

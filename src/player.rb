@@ -1,9 +1,11 @@
 class Player
 	attr_accessor :coord
+	attr_accessor :stats
 	@coord
 
 	def initialize(coord)
 		@coord = coord
+		@stats = Stats.new
 	end
 
 	def go_dir(direction)
