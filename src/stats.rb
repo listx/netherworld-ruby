@@ -1,13 +1,17 @@
 class Stats
 	attr_accessor :hash
-	def initialize
-		# Base stats.
-		@hash =\
-			{ health: 100\
-			, mana: 100\
-			, strength: 10\
-			, wisdom: 10\
-			}
+	def initialize(input_hash)
+		if input_hash.empty?
+			# Default stats.
+			@hash =\
+				{ health: 100\
+				, mana: 100\
+				, strength: 10\
+				, wisdom: 10\
+				}
+		else
+			@hash = input_hash
+		end
 	end
 	def merge_exist!(hsh)
 		# Check if the given hash only includes keys that already exist.
@@ -34,4 +38,8 @@ class Stats
 			raise "@hash does not have key #{sym}"
 		end
 	end
+end
+
+def stats_same_state(s1, s2)
+	s1.hash == s2.hash
 end

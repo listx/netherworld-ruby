@@ -116,7 +116,7 @@ class MWC256
 	# This method is always called on intialization; it is the internal numeric
 	# way we initialize the RNG. The input seed is a list of unsigned 32-bit
 	# numbers. The first 256 values are called `ws`, after "Word32"s. The 257th
-	# value is the index, or `i`. The 258th value is the mutable constant, `c`.
+	# value is the index, or `i`.
 	def init_state(seed)
 		@ioff = 256
 		@coff = 257
@@ -241,6 +241,10 @@ class MWC256
 			[chosen] + rest
 		end
 	end
+end
+
+def rng_same_state(r1, r2)
+	r1.state == r2.state
 end
 
 # Returns an array of Word32s.

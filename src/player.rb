@@ -3,9 +3,9 @@ class Player
 	attr_accessor :stats
 	@coord
 
-	def initialize(coord)
-		@coord = coord
-		@stats = Stats.new
+	def initialize(player_hash)
+		@coord = player_hash[:coord]
+		@stats = player_hash[:stats]
 	end
 
 	def go_dir(direction)
@@ -75,4 +75,9 @@ class Player
 	def go_dirs!(directions)
 		@coord = go_dirs(directions)
 	end
+end
+
+def player_same_state(p1, p2)
+	(p1.coord == p2.coord)\
+		&& stats_same_state(p1.stats, p2.stats)
 end

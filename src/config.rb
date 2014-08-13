@@ -8,19 +8,23 @@ class GameConfig
 	attr_accessor :affix_db
 	attr_accessor :monster_db
 
-	def initialize(filename)
+	def initialize(config_dir, config_hash)
 		# First, get the location of the configuration file; as the entries
 		# *inside* the config file will have paths, we must relativize these
 		# paths with respect to the config file's own path.
-		config_path = Pathname.new(filename)
-		config_dir = config_path.dirname
-
-		config_raw = IO.read(filename)
-		hash = ConfigParserTransform.new.apply(parse_config(config_raw))
-		@game_map = config_dir + hash[:map]
-		@affix_db = config_dir + hash[:affix_db]
-		@monster_db = config_dir + hash[:monster_db]
+		@game_map = config_dir + config_hash[:map]
+		@affix_db = config_dir + config_hash[:affix_db]
+		@monster_db = config_dir + config_hash[:monster_db]
 	end
+end
+
+def config_from_filepath(config_fp)
+	config_path = Pathname.new(config_fp)
+	config_dir = config_path.dirname
+	config_raw = IO.read(config_fp)
+	config_hash = ConfigParserTransform.new
+		.apply(parse_config(config_raw))
+	GameConfig.new(config_dir, config_hash)
 end
 
 GCONF_KEYS = %w[
@@ -37,7 +41,7 @@ class ConfigParser < ParserHelpers
 			whitespace_.maybe >>
 				str(key) >>
 				whitespace_.maybe >>
-				string_literal.as(no_dash(key).to_sym) >>
+				string_literal.as(key.undash.to_sym) >>
 				whitespace_.maybe
 		end.reduce(:>>)
 	end
@@ -56,6 +60,6 @@ end
 
 class ConfigParserTransform < Parslet::Transform
 	rule(string_literal: simple(:x)) do
-		String(x)
+		String(x).unquote
 	end
 end

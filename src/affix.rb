@@ -132,7 +132,7 @@ class Affix
 		c = hash[:class].to_s
 		@class =
 			if AFFIX_CLASS_NAMES.include?(c)
-				no_dash(c).to_sym
+				c.undash.to_sym
 			else
 				raise "unrecognized affix class `#{hash[:class]}'"
 			end

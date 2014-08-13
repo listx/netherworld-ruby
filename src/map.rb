@@ -53,9 +53,7 @@ class GameMap
 	@range = [0, 0]
 	attr_reader :game_map_array
 	attr_reader :range
-	def initialize(filename)
-		# read and put lines of given filename into array
-		lines = IO.readlines(filename)
+	def initialize(lines)
 		# Determine the map size.
 		x = 0
 		x_max = 0

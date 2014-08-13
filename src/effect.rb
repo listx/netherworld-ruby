@@ -10,7 +10,7 @@ class Effect
 		et = hash[:effect_type].to_s
 		@type =
 			if EFFECT_TYPE_NAMES.include?(et)
-				no_dash(et).to_sym
+				et.undash.to_sym
 			else
 				raise "unrecognized effect type `#{hash[:effect_type]}'"
 			end
