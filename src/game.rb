@@ -67,7 +67,10 @@ module Game
 				if tokens.size != 2
 					nw_puts(gs, "Please provide a single savegame filepath.")
 				else
-					gs = load_game(tokens[1])
+					gs1 = load_game(tokens[1])
+					# Carry over current 'debug' state into loaded game.
+					gs1.debug = gs.debug
+					gs = gs1
 					puts "Game loded successfully."
 					puts "Entering world..."
 				end

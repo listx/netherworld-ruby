@@ -74,6 +74,18 @@ class String
 		self.gsub(/-/,'_')
 	end
 
+	def enclose(a, b)
+		a + self + b
+	end
+
+	def squote()
+		self.enclose("`","'")
+	end
+
+	def squote_()
+		self.enclose(" `","' ")
+	end
+
 	# Remove quotes
 	def unquote
 		match = /"(.*)"/.match(self)
