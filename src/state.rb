@@ -51,11 +51,16 @@ end
 
 def get_user_input(gs)
 	if gs.replay
-		p gs.input_history
 		gs.input_history.pop
 	else
 		str = STDIN.gets.chomp
 		gs.input_history.push(str)
 		str
+	end
+end
+
+def nw_puts(gs, str)
+	if !gs.replay || gs.debug
+		puts str
 	end
 end

@@ -8,7 +8,7 @@ end
 def battle_trigger(gs)
 	r = gs.rng.roll(100)
 	if r < 7
-		puts "You enter a battle!!!"
+		nw_puts(gs, "You enter a battle!!!")
 		spawn_monsters(gs)
 		battle_loop(gs)
 	end
@@ -18,7 +18,7 @@ def battle_loop(gs)
 	battle_player_option(gs)
 	#battle_monster_option(gs)
 	if gs.monsters.empty?
-		puts "You defeat all monsters!"
+		nw_puts(gs, "You defeat all monsters!")
 		gs.last_battle_command = ""
 	else
 		battle_loop(gs)
@@ -39,7 +39,7 @@ def run_option(gs, str)
 	when "f"
 		gs.last_battle_command = str
 		r = gs.rng.roll(100)
-		puts "You do #{r} damage!"
+		nw_puts(gs, "You do #{r} damage!")
 		ms = []
 		gs.monsters.each do |m|
 			m.stats.sub!(:health, r)
@@ -49,7 +49,7 @@ def run_option(gs, str)
 		end
 		gs.monsters = ms
 	else
-		puts "What?"
+		nw_puts(gs, "What?")
 		gs.last_battle_command = str
 		battle_player_option(gs)
 	end

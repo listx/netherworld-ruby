@@ -49,12 +49,11 @@ class Player
 			&& !game_map.game_map_array[y][x].nil?
 	end
 
-	def move(direction, game_map)
+	def move(gs, direction, game_map)
 		if self.can_go_dir?(direction, game_map)
-#			puts "You go #{direction.to_s}."
 			self.go_dir!(direction)
 		else
-			puts "You cannot go there."
+			nw_puts(gs, "You cannot go there.")
 		end
 	end
 

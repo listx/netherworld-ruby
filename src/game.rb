@@ -33,8 +33,8 @@ module Game
 		p = gs.player
 		pc = p.coord
 
-		puts gs.game_map.mini_map(pc, 10)
-		puts p.coord_str
+		nw_puts(gs, gs.game_map.mini_map(pc, 10))
+		nw_puts(gs, p.coord_str)
 
 		tokens = get_user_input(gs).split(' ')
 		@cmd =\
@@ -59,20 +59,22 @@ module Game
 				keep_going = false
 			when "save"
 				if tokens.size != 2
-					puts "Please provide a single savegame filepath."
+					nw_puts(gs, "Please provide a single savegame filepath.")
 				else
 					save_game(gs, tokens[1])
 				end
 			when "load"
 				if tokens.size != 2
-					puts "Please provide a single savegame filepath."
+					nw_puts(gs, "Please provide a single savegame filepath.")
 				else
 					gs = load_game(tokens[1])
+					puts "Game loded successfully."
+					puts "Entering world..."
 				end
 			when ""
-				puts "Confused already?"
+				nw_puts(gs, "Confused already?")
 			else
-				puts "You stall in confusion."
+				nw_puts(gs, "You stall in confusion.")
 			end
 		end
 		[gs, keep_going]
@@ -81,7 +83,7 @@ module Game
 	def go_if_ok(gs, str)
 		p = gs.player
 		coord_old = p.coord
-		p.move(DIR_HASH[str], gs.game_map)
+		p.move(gs, DIR_HASH[str], gs.game_map)
 	end
 
 	def mix_rng(gs, str)
@@ -176,7 +178,6 @@ module Game
 			# again to [FIRST..LAST] order so that Array#push will *append* the
 			# latest command to the end of the history.
 			game_state.input_history = game_state.input_history.reverse
-			pp game_state
 			game_state
 		else
 			raise "game verification failure"
