@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require_relative 'game'
+
+# Allow calling Game module methods with `Game.` prefix.
 include Game
 
 # Import game configuration with path to configuration file. This is the same as
